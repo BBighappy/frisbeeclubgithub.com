@@ -59,11 +59,10 @@
             position: relative;
             z-index: 5;
         }
-        /* 语言切换按钮 */
-        #lang-toggle {
+        /* 按钮样式 */
+        #lang-toggle, #admin-btn {
             position: absolute;
             top: 10px;
-            right: 20px;
             background: rgba(255, 255, 255, 0.9);
             border: none;
             padding: 8px 12px;
@@ -74,8 +73,39 @@
             transition: background 0.3s;
             z-index: 15;
         }
-        #lang-toggle:hover {
+        #lang-toggle {
+            right: 20px;
+        }
+        #admin-btn {
+            right: 120px; /* 避开语言按钮 */
+            color: #ff6b6b; /* 管理员按钮红色调 */
+        }
+        #admin-btn:hover, #lang-toggle:hover {
             background: rgba(255, 255, 255, 1);
+        }
+        /* 编辑模式样式 */
+        .editable {
+            border-bottom: 1px dashed #ccc;
+            padding: 2px;
+            cursor: text;
+        }
+        .editable:focus {
+            outline: none;
+            border-bottom: 1px solid #00bfff;
+            background: rgba(255, 255, 255, 0.5);
+        }
+        #save-btn {
+            display: none;
+            background: #4ecdc4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px auto;
+        }
+        #save-btn:hover {
+            background: #45b7aa;
         }
         .intro { 
             max-width: 800px; 
@@ -128,6 +158,7 @@
     <div class="flying-disc"></div>
     
     <header>
+        <button id="admin-btn">Admin</button>
         <button id="lang-toggle">EN</button>
         <h1 class="translatable" data-zh="蓝天飞盘俱乐部" data-en="Blue Sky Frisbee Club">蓝天飞盘俱乐部</h1>
         <p class="translatable" data-zh="爱好相同，趣味相同，相聚于此" data-en="Same hobbies, same interests, gather here" style="font-size: 1.2em;">爱好相同，趣味相同，相聚于此</p>
@@ -150,10 +181,11 @@
     
     <section class="contact">
         <h2 class="translatable" data-zh="联系我们" data-en="Contact Us">联系我们</h2>
-        <p><strong>电话：</strong> 138-XXXX-XXXX</p>
-        <p class="translatable" data-zh="<strong>地址：</strong> 北京市朝阳区XX公园（每周六上午9:00集合）" data-en="<strong>Address:</strong> Chaoyang District, Beijing XX Park (Gather every Saturday at 9:00 AM)"><strong>地址：</strong> 北京市朝阳区XX公园（每周六上午9:00集合）</p>
-        <p class="translatable" data-zh="<strong>微信/邮箱：</strong> lantianfipan@club.com" data-en="<strong>WeChat/Email:</strong> lantianfipan@club.com"><strong>微信/邮箱：</strong> lantianfipan@club.com</p>
+        <p><strong>电话：</strong> <span id="phone" class="translatable editable" data-zh="138-XXXX-XXXX" data-en="138-XXXX-XXXX">138-XXXX-XXXX</span></p>
+        <p class="translatable" data-zh="<strong>地址：</strong> <span id='address' class='editable'>北京市朝阳区XX公园（每周六上午9:00集合）</span>" data-en="<strong>Address:</strong> <span id='address' class='editable'>Chaoyang District, Beijing XX Park (Gather every Saturday at 9:00 AM)</span>"><strong>地址：</strong> <span id="address" class="editable">北京市朝阳区XX公园（每周六上午9:00集合）</span></p>
+        <p class="translatable" data-zh="<strong>微信/邮箱：</strong> <span id='contact-info' class='editable'>lantianfipan@club.com</span>" data-en="<strong>WeChat/Email:</strong> <span id='contact-info' class='editable'>lantianfipan@club.com</span>"><strong>微信/邮箱：</strong> <span id="contact-info" class="editable">lantianfipan@club.com</span></p>
         <p class="translatable" data-zh="扫描下方二维码加入群聊，一起飞起来！（占位：二维码图片）" data-en="Scan the QR code below to join the group chat and fly together! (Placeholder: QR code image)">扫描下方二维码加入群聊，一起飞起来！（占位：二维码图片）</p>
+        <button id="save-btn">Save Changes</button>
     </section>
     
     <footer>
@@ -186,6 +218,70 @@
 
         // 初始加载
         updateLanguage('zh');
+
+        // 管理员功能
+        const adminBtn = document.getElementById('admin-btn');
+        const saveBtn = document.getElementById('save-btn');
+        const password = 'song123456';
+        let isAdminMode = false;
+
+        function toggleAdminMode() {
+            if (!isAdminMode) {
+                const input = prompt('请输入管理员密码：');
+                if (input === password) {
+                    enableEditMode();
+                } else {
+                    alert('密码错误！');
+                }
+            } else {
+                disableEditMode();
+            }
+        }
+
+        function enableEditMode() {
+            isAdminMode = true;
+            adminBtn.textContent = currentLang === 'zh' ? '退出管理员' : 'Exit Admin';
+            adminBtn.style.color = '#4ecdc4';
+            document.querySelectorAll('.editable').forEach(el => {
+                el.contentEditable = true;
+                el.classList.add('editable'); // 确保样式
+            });
+            saveBtn.style.display = 'block';
+        }
+
+        function disableEditMode() {
+            isAdminMode = false;
+            adminBtn.textContent = currentLang === 'zh' ? '管理员' : 'Admin';
+            adminBtn.style.color = '#ff6b6b';
+            document.querySelectorAll('.editable').forEach(el => {
+                el.contentEditable = false;
+                el.classList.remove('editable');
+            });
+            saveBtn.style.display = 'none';
+        }
+
+        saveBtn.addEventListener('click', () => {
+            // 保存：这里用localStorage简单存（刷新后保留），实际可后端API
+            const phone = document.getElementById('phone').textContent;
+            const address = document.getElementById('address').textContent;
+            const contactInfo = document.getElementById('contact-info').textContent;
+            localStorage.setItem('adminPhone', phone);
+            localStorage.setItem('adminAddress', address);
+            localStorage.setItem('adminContactInfo', contactInfo);
+            alert('更改已保存！');
+        });
+
+        // 加载保存的数据
+        window.addEventListener('load', () => {
+            const savedPhone = localStorage.getItem('adminPhone');
+            const savedAddress = localStorage.getItem('adminAddress');
+            const savedContactInfo = localStorage.getItem('adminContactInfo');
+            if (savedPhone) document.getElementById('phone').textContent = savedPhone;
+            if (savedAddress) document.getElementById('address').textContent = savedAddress;
+            if (savedContactInfo) document.getElementById('contact-info').textContent = savedContactInfo;
+        });
+
+        adminBtn.addEventListener('click', toggleAdminMode);
     </script>
 </body>
 </html>
