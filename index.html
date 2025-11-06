@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蓝天飞盘俱乐部 - 爱好相同，趣味相同，相聚于此</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-image: url('https://images.pexels.com/photos/8944632/pexels-photo-8944632.jpeg?auto=compress&cs=tinysrgb&w=1920');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+            position: relative; 
+            overflow-x: hidden;
+        }
+        /* 飞盘动画样式 */
+        .flying-disc {
+            position: fixed;
+            top: 20%;
+            left: -100px; 
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #4ecdc4); 
+            border-radius: 50%;
+            z-index: 10;
+            animation: flyAndSpin 10s linear infinite; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
+        }
+        .flying-disc::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+        @keyframes flyAndSpin {
+            0% {
+                transform: translateX(0) rotate(0deg);
+                left: -100px;
+            }
+            100% {
+                transform: translateX(120vw) rotate(360deg); 
+                left: 100%;
+            }
+        }
+        header { 
+            background: linear-gradient(to right, rgba(0, 191, 255, 0.8), rgba(32, 178, 170, 0.8)); 
+            color: white; 
+            text-align: center; 
+            padding: 50px 20px; 
+            position: relative;
+            z-index: 5;
+        }
+        /* 语言切换按钮 */
+        #lang-toggle {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #00bfff;
+            transition: background 0.3s;
+            z-index: 15;
+        }
+        #lang-toggle:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+        .intro { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            background: rgba(255, 255, 255, 0.9); 
+            border-radius: 10px;
+            text-align: center; 
+            margin-top: 100px; 
+        }
+        .founder { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 40px 20px; 
+            background: rgba(230, 243, 255, 0.9); 
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 10px;
+        }
+        .founder img { 
+            width: 200px; 
+            height: 200px; 
+            border-radius: 50%; 
+            margin-right: 30px; 
+        }
+        .contact { 
+            background: rgba(32, 178, 170, 0.9); 
+            color: white; 
+            padding: 40px 20px; 
+            text-align: center; 
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 10px;
+        }
+        footer { 
+            text-align: center; 
+            padding: 20px; 
+            background: rgba(0, 191, 255, 0.9); 
+            color: white; 
+        }
+        /* 翻译元素类 */
+        .translatable {
+            transition: opacity 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <!-- 飞盘动画元素 -->
+    <div class="flying-disc"></div>
+    
+    <header>
+        <button id="lang-toggle">EN</button>
+        <h1 class="translatable" data-zh="蓝天飞盘俱乐部" data-en="Blue Sky Frisbee Club">蓝天飞盘俱乐部</h1>
+        <p class="translatable" data-zh="爱好相同，趣味相同，相聚于此" data-en="Same hobbies, same interests, gather here" style="font-size: 1.2em;">爱好相同，趣味相同，相聚于此</p>
+    </header>
+    
+    <section class="intro">
+        <h2 class="translatable" data-zh="欢迎加入我们！" data-en="Welcome to Join Us!">欢迎加入我们！</h2>
+        <p class="translatable" data-zh="蓝天飞盘俱乐部是一个专为飞盘爱好者打造的社区。这里，我们共享对极限飞盘的热爱，享受投掷与接球的乐趣。无论你是新手还是老鸟，都能在这里找到志同道合的伙伴，一起在蓝天下奔跑、欢笑、成长。" data-en="Blue Sky Frisbee Club is a community built for frisbee enthusiasts. Here, we share our passion for ultimate frisbee, enjoying the thrill of throwing and catching. Whether you're a beginner or a veteran, you'll find like-minded partners to run, laugh, and grow together under the blue sky.">蓝天飞盘俱乐部是一个专为飞盘爱好者打造的社区。这里，我们共享对极限飞盘的热爱，享受投掷与接球的乐趣。无论你是新手还是老鸟，都能在这里找到志同道合的伙伴，一起在蓝天下奔跑、欢笑、成长。</p>
+        <p class="translatable" data-zh="我们的活动包括每周户外训练、周末比赛和小团体聚会。飞盘不只是运动，更是连接心灵的桥梁——尊重对手、团队协作、永不放弃的精神，让每一次相聚都充满惊喜！" data-en="Our activities include weekly outdoor training, weekend matches, and small group gatherings. Frisbee is more than a sport—it's a bridge connecting hearts, with spirits of respecting opponents, teamwork, and never giving up, making every gathering full of surprises!">我们的活动包括每周户外训练、周末比赛和小团体聚会。飞盘不只是运动，更是连接心灵的桥梁——尊重对手、团队协作、永不放弃的精神，让每一次相聚都充满惊喜！</p>
+    </section>
+    
+    <section class="founder">
+        <img src="https://via.placeholder.com/200x200/00bfff/ffffff?text=创办人照片" alt="创办人照片">
+        <div>
+            <h2 class="translatable" data-zh="创办人介绍" data-en="Founder Introduction">创办人介绍</h2>
+            <p class="translatable" data-zh="<strong>李飞（Founder）</strong>" data-en="<strong>Li Fei (Founder)</strong>"><strong>李飞（Founder）</strong></p>
+            <p class="translatable" data-zh="飞盘十年老将，曾参与全国大学生飞盘锦标赛。创办蓝天俱乐部，只为让更多人爱上这项自由而激情的运动。座右铭：飞盘如人生，抛出去才能接得住惊喜！" data-en="A 10-year frisbee veteran who participated in the National University Frisbee Championships. Founded Blue Sky Club to let more people fall in love with this free and passionate sport. Motto: Frisbee is like life—throw it out to catch the surprises!">飞盘十年老将，曾参与全国大学生飞盘锦标赛。创办蓝天俱乐部，只为让更多人爱上这项自由而激情的运动。座右铭：飞盘如人生，抛出去才能接得住惊喜！</p>
+        </div>
+    </section>
+    
+    <section class="contact">
+        <h2 class="translatable" data-zh="联系我们" data-en="Contact Us">联系我们</h2>
+        <p><strong>电话：</strong> 138-XXXX-XXXX</p>
+        <p class="translatable" data-zh="<strong>地址：</strong> 北京市朝阳区XX公园（每周六上午9:00集合）" data-en="<strong>Address:</strong> Chaoyang District, Beijing XX Park (Gather every Saturday at 9:00 AM)"><strong>地址：</strong> 北京市朝阳区XX公园（每周六上午9:00集合）</p>
+        <p class="translatable" data-zh="<strong>微信/邮箱：</strong> lantianfipan@club.com" data-en="<strong>WeChat/Email:</strong> lantianfipan@club.com"><strong>微信/邮箱：</strong> lantianfipan@club.com</p>
+        <p class="translatable" data-zh="扫描下方二维码加入群聊，一起飞起来！（占位：二维码图片）" data-en="Scan the QR code below to join the group chat and fly together! (Placeholder: QR code image)">扫描下方二维码加入群聊，一起飞起来！（占位：二维码图片）</p>
+    </section>
+    
+    <footer>
+        <p class="translatable" data-zh="&copy; 2025 蓝天飞盘俱乐部 | 相聚飞盘，乐在其中" data-en="&copy; 2025 Blue Sky Frisbee Club | Gather for frisbee, joy in every moment">&copy; 2025 蓝天飞盘俱乐部 | 相聚飞盘，乐在其中</p>
+    </footer>
+
+    <script>
+        // 语言切换功能
+        let currentLang = 'zh'; // 默认中文
+        const toggleBtn = document.getElementById('lang-toggle');
+
+        function updateLanguage(lang) {
+            document.querySelectorAll('.translatable').forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if (text) {
+                    el.innerHTML = text; // 支持HTML标签，如<strong>
+                }
+            });
+            // 更新按钮文本
+            toggleBtn.textContent = lang === 'zh' ? 'EN' : '中文';
+            // 更新html lang属性
+            document.documentElement.lang = lang;
+            currentLang = lang;
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            const newLang = currentLang === 'zh' ? 'en' : 'zh';
+            updateLanguage(newLang);
+        });
+
+        // 初始加载
+        updateLanguage('zh');
+    </script>
+</body>
+</html>
